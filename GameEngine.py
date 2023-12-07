@@ -38,16 +38,16 @@ class GameEngine:
                     line_count = 0
                     for line in file:
                         if line_count == 0:
-                            print(line)
+                            # print(line)
                             fieldSize = line.strip().split(",")
                             del fieldSize[0]
-                            print(fieldSize)
+                            # print(fieldSize)
                             rows = int(fieldSize[0])
                             columns = int(fieldSize[1])
                             for j in range(rows):
                                 self.field.append([None] * columns)
-                            for i in range(rows):
-                                print(self.field[i])
+                            # for i in range(rows):
+                            #     print(self.field[i])
                         else:
                             veggieName, veggieSymbol, veggiePoints = line.strip().split(",")
                             veggie = Veggie(veggieName, veggieSymbol, int(veggiePoints))
