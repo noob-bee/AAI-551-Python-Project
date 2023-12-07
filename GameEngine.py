@@ -31,10 +31,10 @@ class GameEngine:
 
                 fileExists = True
 
-                print(f"{fileName} located....    PROCEEDING FURTHER ACTIONS....")
+                # print(f"{fileName} located....    PROCEEDING FURTHER ACTIONS....")
 
                 with open(fileName, 'r') as file:  # We have opened the file and created a 2D array of specified size
-                    print("\nPrinting the lines of the files:......")
+                    # print("\nPrinting the lines of the files:......")
                     line_count = 0
                     for line in file:
                         if line_count == 0:
@@ -84,7 +84,7 @@ class GameEngine:
             while True:
                 x = random.randint(0, len(self.field) - 1)
                 y = random.randint(0, len(self.field[0]) - 1)
-                print(x, y)
+                # print(x, y)
                 if self.field[x][y] is None:
                     rabbit = Rabit(x, y)
                     self.field[x][y] = rabbit
@@ -130,7 +130,7 @@ class GameEngine:
                     maxRowLength += 3
             rowLengthList.append(maxRowLength)
             maxRowLength = 0
-        print(max(rowLengthList))
+        # print(max(rowLengthList))
         maxRowLength = max(rowLengthList)
 
         print("-" * (maxRowLength + 4))
@@ -153,7 +153,7 @@ class GameEngine:
             print(" " * remainingcColumns + "|")
 
         print("-" * (maxRowLength + 4))
-        print("###########################################################################")
+        # print("###########################################################################")
 
     def getScore(self):
         return self.score
@@ -182,10 +182,10 @@ class GameEngine:
 
         column = self.captain.y
         row = self.captain.x
-        print(column, row)
+        # print(column, row)
         newRow = self.captain.x + verticalMove
         maxRow = len(self.field)
-        print(f"oldRow,oldColumn: {row},{column} | newRow,newColumn: {newRow},{column}")
+        # print(f"oldRow,oldColumn: {row},{column} | newRow,newColumn: {newRow},{column}")
         if 0 == newRow or newRow == maxRow:
             print("You can't move that way")
 
@@ -211,7 +211,7 @@ class GameEngine:
 
         column = self.captain.y  # here column and row are captains existing positions
         row = self.captain.x
-        print(row, column)
+        # print(row, column)
         newColumn = column + horizontalMove
         maxColumn = len(self.field[0])
 
@@ -239,7 +239,7 @@ class GameEngine:
 
         userInput = input("Would you like to move up(W), down(S), left(A), or right(D): ")
         userInput = userInput.lower()
-        print(f"printing user input: {userInput}")
+        # print(f"printing user input: {userInput}")
 
         if userInput == "w":
             self.moveCptVertical(-1)
