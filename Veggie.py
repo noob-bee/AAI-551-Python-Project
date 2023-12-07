@@ -20,6 +20,6 @@ class Veggie(FieldInhabitant):
         return self.veg_points
 
     def __str__(self):
-        print(f"Vegetable Symbol: {self.getSymbol()}, Vegetable Points: {self.getVegPoints()}, Vegetable Name: {self.getVegName()}")
+        return (f"{self.getSymbol()}: {self.getVegName()} {self.getVegPoints()} points")
 
 
