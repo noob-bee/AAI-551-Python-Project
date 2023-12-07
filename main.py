@@ -1,7 +1,7 @@
 from GameEngine import GameEngine
 
 def main():
-
+    """Main Function: this file controls the game engine file in turn controlling the game"""
     gameEngine = GameEngine()
 
     gameEngine.initializeGame()

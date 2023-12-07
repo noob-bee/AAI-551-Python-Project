@@ -6,12 +6,13 @@ from Rabit import Rabit
 import pickle
 
 class GameEngine:
+    """Game engine  class this has all the gaming functions"""
 
     _NUMBEROFVEGGIES = 30
     _NUMBEROFRABBITS = 5
     _HIGHSCOREFILE = "highscore.data"
 
-    def __init__(self):
+    def __init__(self): # This the constructor for the Game Engine class
 
         self.field = []
         self.rabitsOnFields = []
@@ -19,7 +20,7 @@ class GameEngine:
         self.allPossibleVeggies = []
         self.score = 0
 
-    def initVeggies(self):
+    def initVeggies(self): #This one is responsible for reading the csv, plotting the field by placing veggies in it
 
         fileExists = False
 
@@ -57,7 +58,7 @@ class GameEngine:
 
             # Field was initialized, veggie objects were created and inserted in the "listofpossible" veggies
 
-        for _ in range(self._NUMBEROFVEGGIES):
+        for _ in range(self._NUMBEROFVEGGIES): #This one randomly inserts the veggies throughout the field
             while True:
                 x = random.randint(0, len(self.field) - 1)
                 y = random.randint(0, len(self.field[0]) - 1)
@@ -67,7 +68,7 @@ class GameEngine:
                     # print("initiating break")
                     break
 
-    def initCaptain(self):
+    def initCaptain(self): # This one is responsible for placing the captain into a random empty location on field
 
         while True:
             x = random.randint(0, len(self.field) - 1)
@@ -78,7 +79,7 @@ class GameEngine:
                 self.field[x][y] = self.captain
                 break
 
-    def initRabbits(self):
+    def initRabbits(self): # This places 5 rabbits on the random empty locations on the field
 
         for _ in range(self._NUMBEROFRABBITS):
             while True:
@@ -91,7 +92,7 @@ class GameEngine:
                     self.rabitsOnFields.append(rabbit)
                     break
 
-    def initializeGame(self):
+    def initializeGame(self): #This one calls three of the below functions and completly prepares the field
         self.initVeggies()
         self.initCaptain()
         self.initRabbits()
@@ -99,7 +100,7 @@ class GameEngine:
         # GameEngine.initCaptain()
         # GameEngine.initRabbits()
 
-    def remainingVeggies(self):
+    def remainingVeggies(self): # This one returns the remaining veggies on the field
         veggieCount = 0
         for row in self.field:
             for column in row:
@@ -107,7 +108,7 @@ class GameEngine:
                     veggieCount += 1
         return veggieCount
 
-    def intro(self):
+    def intro(self): # This one just gives the introduction to the player
         print("\n Welcome to Captain Veggie!\n")
         print("The rabbits have invaded your garden and you must harvest"
               "as many vegetables as possible before the rabbits eat them"
@@ -119,7 +120,7 @@ class GameEngine:
         print("Captain Veggie is V, and the rabbits are R's"
               "Good luck!")
 
-    def printField(self):
+    def printField(self): # This prints the Field whenever required
         maxRowLength = 0
         rowLengthList = []
         for row in self.field:
@@ -155,10 +156,10 @@ class GameEngine:
         print("-" * (maxRowLength + 4))
         # print("###########################################################################")
 
-    def getScore(self):
+    def getScore(self): #This one returns the score for the player
         return self.score
 
-    def moveRabits(self):
+    def moveRabits(self): # This one moves the rabbits to random locations each time the function is called
 
         rabitMoves = [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, -1), (1, 1), (-1, 1)]
         maxX = len(self.field)
@@ -178,7 +179,7 @@ class GameEngine:
                         self.field[newX][newY] = rabit
                         validMove = True
 
-    def moveCptVertical(self, verticalMove):
+    def moveCptVertical(self, verticalMove): #This one handles vertical movements of the captain (up/down)
 
         column = self.captain.y
         row = self.captain.x
@@ -207,7 +208,7 @@ class GameEngine:
             elif isinstance(self.field[newRow][column], Rabit):
                 print("Don't step on the bunnies!")
 
-    def moveCptHorizontal(self, horizontalMove):
+    def moveCptHorizontal(self, horizontalMove): #This one deals with left/right movement of the captain
 
         column = self.captain.y  # here column and row are captains existing positions
         row = self.captain.x
@@ -235,7 +236,7 @@ class GameEngine:
             elif isinstance(self.field[row][newColumn], Rabit):
                 print("Don't step on the bunnies!")
 
-    def moveCaptain(self):
+    def moveCaptain(self): #This one calls the appropriate move function as per the user input to move the captain
 
         userInput = input("Would you like to move up(W), down(S), left(A), or right(D): ")
         userInput = userInput.lower()
@@ -252,7 +253,7 @@ class GameEngine:
         else:
             print(f"{userInput} is not a valid option")
 
-    def gameOver(self):
+    def gameOver(self): #This is the game over function :-(
         print("GAME OVER!\n You managed to harvest the following vegetables: ")
 
         for veggie in self.captain.getVeggieList():
@@ -260,7 +261,7 @@ class GameEngine:
 
         print(f"Your score was: {self.getScore()}")
 
-    def highScore(self):
+    def highScore(self): #This one reads and writes the highscore to the highscore file
 
         playerInfo = []
 
