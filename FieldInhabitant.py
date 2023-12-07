@@ -1,10 +1,10 @@
 
 class FieldInhabitant:
-    def __int__(self, symbol):
-        self.__symbol = symbol
+    def __init__(self, symbol):
+        self.symbol = symbol
 
     def setSymbol(self, symbol):
-        self.__symbol = symbol
+        self.symbol = symbol
 
     def getSymbol(self):
-        return self.__symbol
+        return self.symbol
