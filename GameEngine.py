@@ -3,6 +3,7 @@ from Veggie import Veggie
 import os
 from Captain import Captain
 from Rabit import Rabit
+import pickle
 
 class GameEngine:
 
@@ -205,3 +206,88 @@ class GameEngine:
 
             elif isinstance(self.field[newRow][column], Rabit):
                 print("Don't step on the bunnies!")
+
+    def moveCptHorizontal(self, horizontalMove):
+
+        column = self.captain.y  # here column and row are captains existing positions
+        row = self.captain.x
+        print(row, column)
+        newColumn = column + horizontalMove
+        maxColumn = len(self.field[0])
+
+        if 0 == newColumn or newColumn == maxColumn:
+            print("You can't move that way!")
+
+        if 0 <= newColumn < maxColumn:
+            if self.field[row][newColumn] is None:
+                self.captain.y = newColumn
+                self.field[row][newColumn] = self.captain
+                self.field[row][column] = None
+
+            elif isinstance(self.field[row][newColumn], Veggie):
+                print(f"Yummy! A delicious {self.field[row][newColumn].getVegName()}")
+                self.captain.addVeggie(self.field[row][newColumn])
+                self.score += self.field[row][newColumn].getVegPoints()
+                self.field[row][column] = None
+                self.captain.y = newColumn
+                self.field[row][newColumn] = self.captain
+
+            elif isinstance(self.field[row][newColumn], Rabit):
+                print("Don't step on the bunnies!")
+
+    def moveCaptain(self):
+
+        userInput = input("Would you like to move up(W), down(S), left(A), or right(D): ")
+        userInput = userInput.lower()
+        print(f"printing user input: {userInput}")
+
+        if userInput == "w":
+            self.moveCptVertical(-1)
+        elif userInput == "s":
+            self.moveCptVertical(1)
+        elif userInput == "a":
+            self.moveCptHorizontal(-1)
+        elif userInput == "d":
+            self.moveCptHorizontal(1)
+        else:
+            print(f"{userInput} is not a valid option")
+
+    def gameOver(self):
+        print("GAME OVER!\n You managed to harvest the following vegetables: ")
+
+        for veggie in self.captain.getVeggieList():
+            print(veggie.getVegName())
+
+        print(f"Your score was: {self.getScore()}")
+
+    def highScore(self):
+
+        playerInfo = []
+
+        if os.path.exists(self._HIGHSCOREFILE):
+            with open(self._HIGHSCOREFILE, "rb") as file:
+                playerInfo = pickle.load(file)
+
+        playerInitials = input("Please enter your three initials to go on the scoreboard: ")[:3].upper()
+        playerScore = self.getScore()
+
+        currentScore = (playerInitials, playerScore)
+
+        playerInfo.append(currentScore)
+
+        def sortScore(score):
+            return score[1]
+
+        playerInfo.sort(key=sortScore, reverse=True)
+
+        print("HIGH SCORES")
+
+        for score in playerInfo:
+            print(f"{score[0]}\t{score[1]}")
+
+        with open(self._HIGHSCOREFILE, "wb") as file:
+            pickle.dump(playerInfo, file)
+
+
+
+
