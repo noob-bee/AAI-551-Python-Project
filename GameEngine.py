@@ -110,14 +110,14 @@ class GameEngine:
 
     def intro(self): # This one just gives the introduction to the player
         print("\n Welcome to Captain Veggie!\n")
-        print("The rabbits have invaded your garden and you must harvest"
-              "as many vegetables as possible before the rabbits eat them"
-              "all! Each vegetable is worth a different number of points"
+        print("The rabbits have invaded your garden and you must harvest "
+              "as many vegetables as possible before the rabbits eat them "
+              "all! Each vegetable is worth a different number of points "
               "so go for the high score!")
         print("The vegetables are: ")
         for veggies in self.allPossibleVeggies:
             print(veggies)
-        print("Captain Veggie is V, and the rabbits are R's"
+        print("Captain Veggie is V, and the rabbits are R's "
               "Good luck!")
 
     def printField(self): # This prints the Field whenever required
