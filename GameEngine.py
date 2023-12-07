@@ -117,3 +117,91 @@ class GameEngine:
             print(veggies)
         print("Captain Veggie is V, and the rabbits are R's"
               "Good luck!")
+
+    def printField(self):
+        maxRowLength = 0
+        rowLengthList = []
+        for row in self.field:
+            for column in row:
+                if column is None:
+                    maxRowLength += 3
+                if column is not None:
+                    maxRowLength += 3
+            rowLengthList.append(maxRowLength)
+            maxRowLength = 0
+        print(max(rowLengthList))
+        maxRowLength = max(rowLengthList)
+
+        print("-" * (maxRowLength + 4))
+
+        for row in self.field:
+            print("|", end='')
+            occupiedColumns = 0
+            for column in row:
+
+                if column is None:
+                    print("   ", end='')
+                    # print(column)
+                    occupiedColumns += 3
+
+                else:
+                    print(f" {column.getSymbol()} ", end='')
+                    occupiedColumns += 3
+
+            remainingcColumns = (maxRowLength + 2) - occupiedColumns
+            print(" " * remainingcColumns + "|")
+
+        print("-" * (maxRowLength + 4))
+        print("###########################################################################")
+
+    def getScore(self):
+        return self.score
+
+    def moveRabits(self):
+
+        rabitMoves = [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, -1), (1, 1), (-1, 1)]
+        maxX = len(self.field)
+        maxY = len(self.field[0])
+        for rabit in self.rabitsOnFields:
+            validMove = False
+            while not validMove:
+                x_move, y_move = random.choice(rabitMoves)
+                newX = rabit.x + x_move
+                newY = rabit.y + y_move
+                # print(f"newX,newY: {newX},{newY}| oldx,oldy: {rabit.x},{rabit.y}")
+                if 0 <= newX < maxX and 0 <= newY < maxY:
+                    if self.field[newX][newY] is None or isinstance(self.field[newX][newY], Veggie):
+                        self.field[rabit.x][rabit.y] = None
+                        rabit.x = newX
+                        rabit.y = newY
+                        self.field[newX][newY] = rabit
+                        validMove = True
+
+    def moveCptVertical(self, verticalMove):
+
+        column = self.captain.y
+        row = self.captain.x
+        print(column, row)
+        newRow = self.captain.x + verticalMove
+        maxRow = len(self.field)
+        print(f"oldRow,oldColumn: {row},{column} | newRow,newColumn: {newRow},{column}")
+        if 0 == newRow or newRow == maxRow:
+            print("You can't move that way")
+
+        if 0 <= newRow < maxRow:
+            # newPos = self.field[self.captain.x][newY]
+            if self.field[newRow][column] is None:
+                self.captain.x = newRow
+                self.field[newRow][column] = self.captain
+                self.field[row][column] = None
+
+            elif isinstance(self.field[newRow][column], Veggie):
+                print(f"Yummy! A delicious {self.field[newRow][column].getVegName()}")
+                self.captain.addVeggie(self.field[newRow][column])
+                self.score += self.field[newRow][column].getVegPoints()
+                self.field[row][column] = None
+                self.captain.x = newRow
+                self.field[newRow][column] = self.captain
+
+            elif isinstance(self.field[newRow][column], Rabit):
+                print("Don't step on the bunnies!")
