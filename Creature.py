@@ -4,18 +4,18 @@ class Creature(FieldInhabitant):
 
     def __init__(self, x, y, creature_symbol):
         super().__init__(creature_symbol)
-        self.__x = x
-        self.__y = y
+        self.x = x
+        self.y = y
 
     def setX(self, x):
-        self.__x = x
+        self.x = x
 
     def setY(self, y):
-        self.__y = y
+        self.y = y
 
     def getX(self):
-        return self.__x
+        return self.x
 
     def getY(self):
-        return self.__y
+        return self.y
 
