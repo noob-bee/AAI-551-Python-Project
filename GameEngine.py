@@ -115,8 +115,10 @@ class GameEngine:
               "all! Each vegetable is worth a different number of points "
               "so go for the high score!")
         print("The vegetables are: ")
+        print("\n")
         for veggies in self.allPossibleVeggies:
             print(veggies)
+        print("\n")
         print("Captain Veggie is V, and the rabbits are R's "
               "Good luck!")
 
