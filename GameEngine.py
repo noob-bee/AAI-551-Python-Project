@@ -89,3 +89,31 @@ class GameEngine:
                     self.field[x][y] = rabbit
                     self.rabitsOnFields.append(rabbit)
                     break
+
+    def initializeGame(self):
+        self.initVeggies()
+        self.initCaptain()
+        self.initRabbits()
+        # GameEngine.initVeggies()
+        # GameEngine.initCaptain()
+        # GameEngine.initRabbits()
+
+    def remainingVeggies(self):
+        veggieCount = 0
+        for row in self.field:
+            for column in row:
+                if isinstance(column, Veggie):
+                    veggieCount += 1
+        return veggieCount
+
+    def intro(self):
+        print("\n Welcome to Captain Veggie!\n")
+        print("The rabbits have invaded your garden and you must harvest"
+              "as many vegetables as possible before the rabbits eat them"
+              "all! Each vegetable is worth a different number of points"
+              "so go for the high score!")
+        print("The vegetables are: ")
+        for veggies in self.allPossibleVeggies:
+            print(veggies)
+        print("Captain Veggie is V, and the rabbits are R's"
+              "Good luck!")
