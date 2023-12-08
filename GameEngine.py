@@ -1,6 +1,9 @@
 import random
 from Veggie import Veggie
 import os
+from Captain import Captain
+from Rabit import Rabit
+
 class GameEngine:
 
     _NUMBEROFVEGGIES = 30
@@ -61,4 +64,28 @@ class GameEngine:
                     self.field[x][y] = random.choice(self.allPossibleVeggies)
                     # print("inserting veggie into the field")
                     # print("initiating break")
+                    break
+
+    def initCaptain(self):
+
+        while True:
+            x = random.randint(0, len(self.field) - 1)
+            y = random.randint(0, len(self.field[0]) - 1)
+
+            if self.field[x][y] is None:
+                self.captain = Captain(x, y)
+                self.field[x][y] = self.captain
+                break
+
+    def initRabbits(self):
+
+        for _ in range(self._NUMBEROFRABBITS):
+            while True:
+                x = random.randint(0, len(self.field) - 1)
+                y = random.randint(0, len(self.field[0]) - 1)
+                print(x, y)
+                if self.field[x][y] is None:
+                    rabbit = Rabit(x, y)
+                    self.field[x][y] = rabbit
+                    self.rabitsOnFields.append(rabbit)
                     break
